@@ -1,0 +1,29 @@
+//https://solidity-portuguese.readthedocs.io/pt/latest/layout-of-source-files.html#version-pragma
+//https://gist.github.com/andersoncarubelli/37f81ed3024b04bc35d662f65c4be0c9
+//https://github.com/OpenZeppelin
+//https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/math/SafeMath.sol
+
+pragma solidity >0.4.24;
+
+import 'github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol';
+
+contract CalculadoraSegura {
+    
+    using SafeMath for uint;
+    
+    function somar(uint a, uint b) pure public returns(uint) {
+        return a.add(b);
+    }
+    
+    function dividir(uint a, uint b) pure public returns(uint) {
+        return a.div(b);
+    }
+    
+    function multiplicar(uint a, uint b) pure public returns(uint) {
+        a.mul(b);
+    }
+    
+    function subtrair(uint a, uint b) pure public returns(uint) {
+        a.sub(b);
+    }
+}
