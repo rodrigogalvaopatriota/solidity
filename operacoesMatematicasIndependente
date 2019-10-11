@@ -1,0 +1,19 @@
+pragma solidity >0.5.1;
+
+contract operacoes{
+
+
+    function somar(uint  a,uint  b)  public pure returns(uint256){
+       uint256 soma = a+b;
+       return soma;
+     
+    }
+    
+    
+    function dividir(uint  a,uint  b)  public pure returns(uint256){
+       uint256 div = a/b;
+       return div;
+     
+    }
+    
+}
