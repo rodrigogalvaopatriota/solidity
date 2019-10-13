@@ -1,0 +1,31 @@
+pragma solidity >0.3.0;
+
+contract GuardaLoteria{
+    
+    uint256 numeroSorteado;
+    
+    event TrocoEnviado(address pagador, uint troco);
+    
+    function set(uint enviado)public payable{
+        require(msg.value == 100);
+        //require(msg.sender.balance > 99.9999999999999 ether);
+        
+        if (msg.value > 100){//pagamento mínimo exigido de 1000, caso maior
+            uint troco = msg.value - 100;//calcula o troco
+            msg.sender.transfer(troco);//transfere o troco para quem chamou a função msg.sender
+            //emit TrocoEnviado(msg.sender,troco);//emissão do evento
+        }
+        
+            numeroSorteado = enviado;
+            
+        
+    }
+    
+    function get()public view returns(uint){
+        return numeroSorteado;
+        
+    }
+    
+   
+    
+}
