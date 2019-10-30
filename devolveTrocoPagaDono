@@ -1,0 +1,73 @@
+pragma solidity >0.5.0;
+
+contract cadastro{
+    
+    string nome_dono;
+    address payable dono;
+    
+    uint contador;
+    string mensagem;
+    uint troco;
+    uint256 pgto;
+    uint valor;
+    uint256 valorContribuicao;
+    
+    
+    constructor(string memory _nome_dono) public{
+        nome_dono = _nome_dono;
+        contador = 0;
+        dono = msg.sender;
+        
+    }
+    
+    
+    modifier SomenteDono(){
+        require(msg.sender==dono, "somente o dono pode enviar");
+                _;
+    }
+    
+    modifier ExcetoDono(){
+        require(msg.sender!=dono, "somente o dono pode enviar");
+       
+        
+        _;
+    }
+    
+   
+    
+    //obriga o pagamento, devolve o troco
+    modifier SomenteValue(){
+        //obriga o pagamento
+        require(msg.value >= 4 ether, "minimo de 4 ether");
+        //devolve troco
+        troco = msg.value -4 ether;
+        if (msg.value>2 ether){
+            msg.sender.transfer(troco);
+        }
+        _;
+    }
+    
+   
+    
+    //capta valor digitado, conta 
+    function enviarMensagem (string memory _mensagem) SomenteValue() public payable{
+        valor = msg.value;
+        //valorContribuicao = valor - troco;
+        pgto = valor / 2;
+        
+         dono.transfer(pgto);
+        
+        
+        mensagem = _mensagem;
+        contador ++;
+        
+    }
+    
+    //retorna os valores acima
+    function verificarInputs() public view returns( uint _contador, string memory _nome, string memory _mensagem, uint _troco,uint256 _valor,uint256 _valorContribuicao, uint256 _pgto, address _dono){
+      return(contador, nome_dono, mensagem, troco, valor, valorContribuicao, pgto, dono);  
+      
+    }
+    
+    
+}
